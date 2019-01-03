@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Google Chrome Dino Game Recreation
+ * Created as a possible 10th grade day program.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -57,7 +61,7 @@ namespace DinoGame
 
         private void ButtonPress(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up) {
+            if ((e.KeyCode == Keys.Up || e.KeyCode == Keys.Space)&& dino.Location.Y >= 290) {
                 pos[1] = 150;
                 dino.Location = new Point(Convert.ToInt32(pos[0]), Convert.ToInt32(pos[1]));
             }
