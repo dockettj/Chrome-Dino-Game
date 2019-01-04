@@ -21,6 +21,8 @@ namespace DinoGame
         double[] pos = new double[] { 0, 0 };
         double[] acc = new double[] { 0, 0 };
 
+        bool jumpingRaise, jumpingLower = false;
+
         List<Cactus> cactus = new List<Cactus>();
 
         public Form1()
@@ -33,44 +35,62 @@ namespace DinoGame
             pos[0] = dino.Location.X;
             pos[1] = dino.Location.Y;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            /* Do these things to make a coolio dudelio cacti.
-            Cactus joshua = new Cactus();
-            Controls.Add(joshua.cactus);
-            joshua.cactus.BringToFront();
-            */
         }
 
         private void ButtonPress(object sender, KeyEventArgs e)
         {
             if ((e.KeyCode == Keys.Up || e.KeyCode == Keys.Space) && dino.Location.Y >= 290)
             {
-                pos[1] = 150;
-                dino.Location = new Point(Convert.ToInt32(pos[0]), Convert.ToInt32(pos[1]));
+                jumpingRaise = true;
             }
         }
 
         private void Ground_Tick(object sender, EventArgs e)
         {
             //MessageBox.Show("Tick");
-            double movement = 5;
+            double movement = 12;
             ground.Location = new Point(Convert.ToInt32(ground.Location.X - movement), ground.Location.Y);
             if (ground.Location.X <= this.Width - ground.Width) { ground.Left = 0; }
 
             foreach (Cactus c in cactus)
             {
-                c.updatePosition();
+                c.updatePosition(movement);
+                if (c.cactus.Location.X < -25)
+                {
+                    Controls.Remove(c.cactus);
+                }
             }
         }
 
         private void Clock_Tick(object sender, EventArgs e)
         {
-            if (dino.Location.Y < 290) // Our gravity engine
+            int maxJumpHeight = 150;
+
+            if (jumpingLower == true) // Our gravity engine ( I think. That sounds like the right thing to call it. So I'm going to keep it like that.)
             {
-                acc[1] = 0.45;
+                acc[1] = 0.6; // Gravity. Lower is less of it. NOTE: Make it negative to fly into space thje first time you jump. Rocket shoes baby!
                 vel[1] += acc[1];
                 pos[1] += (vel[1] + 0.55 * acc[1]);
 
                 dino.Location = new Point(Convert.ToInt32(pos[0]), Convert.ToInt32(pos[1]));
+                if (dino.Location.Y >= 290)
+                {
+                    jumpingLower = false;
+                }
+            }
+            else if (jumpingRaise == true)
+            {
+                acc[1] = -1.5; 
+                vel[1] += acc[1];
+                pos[1] += (vel[1] + 0.55 * acc[1]);
+
+                dino.Location = new Point(Convert.ToInt32(pos[0]), Convert.ToInt32(pos[1]));
+                if (dino.Location.Y <= maxJumpHeight)
+                {
+                    vel[1] = 0.45;
+                    jumpingRaise = false;
+                    jumpingLower = true;
+                }
             }
             else
             {

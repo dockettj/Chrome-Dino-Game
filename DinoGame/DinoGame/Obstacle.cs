@@ -25,12 +25,11 @@ namespace DinoGame
             cactus.Size = new Size(43, 90);
         }
 
-        public void updatePosition()
+        public void updatePosition(double movementSpeed)
         {
-            // ground.Location = new Point(Convert.ToInt32(ground.Location.X - movement), ground.Location.Y);\
-            int movement = 5;
-            cactus.Location = new Point(Convert.ToInt32(cactus.Location.X - movement), cactus.Location.Y);
+            cactus.Location = new Point(Convert.ToInt32(cactus.Location.X - movementSpeed), cactus.Location.Y);
         }
+
     }
         class Bird
     {

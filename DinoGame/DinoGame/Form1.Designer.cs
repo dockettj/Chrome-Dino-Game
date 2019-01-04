@@ -70,7 +70,7 @@
             // 
             this.dino.BackColor = System.Drawing.Color.Transparent;
             this.dino.Image = global::DinoGame.Properties.Resources.dinoWalk1;
-            this.dino.Location = new System.Drawing.Point(52, 291);
+            this.dino.Location = new System.Drawing.Point(85, 288);
             this.dino.Name = "dino";
             this.dino.Size = new System.Drawing.Size(54, 78);
             this.dino.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
