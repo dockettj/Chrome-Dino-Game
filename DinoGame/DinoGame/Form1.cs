@@ -21,10 +21,32 @@ namespace DinoGame
         double[] pos = new double[] { 0, 0 };
         double[] acc = new double[] { 0, 0 };
 
+        List<Cactus> cactus = new List<Cactus>();
 
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            pos[0] = dino.Location.X;
+            pos[1] = dino.Location.Y;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            /* Do these things to make a coolio dudelio cacti.
+            Cactus joshua = new Cactus();
+            Controls.Add(joshua.cactus);
+            joshua.cactus.BringToFront();
+            */
+        }
+
+        private void ButtonPress(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Up || e.KeyCode == Keys.Space) && dino.Location.Y >= 290)
+            {
+                pos[1] = 150;
+                dino.Location = new Point(Convert.ToInt32(pos[0]), Convert.ToInt32(pos[1]));
+            }
         }
 
         private void Ground_Tick(object sender, EventArgs e)
@@ -33,13 +55,11 @@ namespace DinoGame
             double movement = 5;
             ground.Location = new Point(Convert.ToInt32(ground.Location.X - movement), ground.Location.Y);
             if (ground.Location.X <= this.Width - ground.Width) { ground.Left = 0; }
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            pos[0] = dino.Location.X;
-            pos[1] = dino.Location.Y;
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            foreach (Cactus c in cactus)
+            {
+                c.updatePosition();
+            }
         }
 
         private void Clock_Tick(object sender, EventArgs e)
@@ -59,12 +79,12 @@ namespace DinoGame
             }
         }
 
-        private void ButtonPress(object sender, KeyEventArgs e)
+        private void Spawn_Tick(object sender, EventArgs e)
         {
-            if ((e.KeyCode == Keys.Up || e.KeyCode == Keys.Space)&& dino.Location.Y >= 290) {
-                pos[1] = 150;
-                dino.Location = new Point(Convert.ToInt32(pos[0]), Convert.ToInt32(pos[1]));
-            }
+            Cactus joshua = new Cactus();
+            Controls.Add(joshua.cactus);
+            joshua.cactus.BringToFront();
+            cactus.Add(joshua);
         }
     }
 }
