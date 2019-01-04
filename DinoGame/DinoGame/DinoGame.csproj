@@ -87,5 +87,26 @@
   <ItemGroup>
     <None Include="res\dino-walk-1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\cacti\cactus1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\cacti\cactus2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\cacti\cactus3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\cacti\cactus4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\cacti\cactus5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\cacti\cactus6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\cacti\cactus7.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -41,7 +41,7 @@
             // ground
             // 
             this.ground.BackColor = System.Drawing.Color.Transparent;
-            this.ground.Image = global::DinoGame.Properties.Resources.ground1;
+            this.ground.Image = global::DinoGame.Properties.Resources.ground;
             this.ground.Location = new System.Drawing.Point(0, 360);
             this.ground.Name = "ground";
             this.ground.Size = new System.Drawing.Size(1287, 29);
@@ -52,7 +52,7 @@
             // dino
             // 
             this.dino.BackColor = System.Drawing.Color.Transparent;
-            this.dino.Image = global::DinoGame.Properties.Resources.dino_walk_1;
+            this.dino.Image = global::DinoGame.Properties.Resources.dinoWalk1;
             this.dino.Location = new System.Drawing.Point(52, 291);
             this.dino.Name = "dino";
             this.dino.Size = new System.Drawing.Size(54, 78);
