@@ -133,9 +133,39 @@ namespace DinoGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dinoDeceased {
+            get {
+                object obj = ResourceManager.GetObject("dinoDeceased", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dinoStanding {
+            get {
+                object obj = ResourceManager.GetObject("dinoStanding", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dinoWalk1 {
             get {
                 object obj = ResourceManager.GetObject("dinoWalk1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dinoWalk2 {
+            get {
+                object obj = ResourceManager.GetObject("dinoWalk2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

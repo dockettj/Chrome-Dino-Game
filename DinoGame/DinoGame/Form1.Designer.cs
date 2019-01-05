@@ -36,6 +36,9 @@
             this.dino = new System.Windows.Forms.PictureBox();
             this.ground = new System.Windows.Forms.PictureBox();
             this.tickSpawn = new System.Windows.Forms.Timer(this.components);
+            this.scoreLabel = new System.Windows.Forms.Label();
+            this.tickScore = new System.Windows.Forms.Timer(this.components);
+            this.tickAnimation = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.cacti)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dino)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ground)).BeginInit();
@@ -59,7 +62,7 @@
             this.cacti.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.cacti.ErrorImage = null;
             this.cacti.Image = global::DinoGame.Properties.Resources.cactus1;
-            this.cacti.Location = new System.Drawing.Point(796, 12);
+            this.cacti.Location = new System.Drawing.Point(675, 12);
             this.cacti.Name = "cacti";
             this.cacti.Size = new System.Drawing.Size(43, 90);
             this.cacti.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -69,8 +72,8 @@
             // dino
             // 
             this.dino.BackColor = System.Drawing.Color.Transparent;
-            this.dino.Image = global::DinoGame.Properties.Resources.dinoWalk1;
-            this.dino.Location = new System.Drawing.Point(85, 288);
+            this.dino.Image = global::DinoGame.Properties.Resources.dinoStanding;
+            this.dino.Location = new System.Drawing.Point(92, 286);
             this.dino.Name = "dino";
             this.dino.Size = new System.Drawing.Size(54, 78);
             this.dino.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -91,15 +94,40 @@
             // tickSpawn
             // 
             this.tickSpawn.Enabled = true;
-            this.tickSpawn.Interval = 3000;
+            this.tickSpawn.Interval = 2100;
             this.tickSpawn.Tick += new System.EventHandler(this.Spawn_Tick);
+            // 
+            // scoreLabel
+            // 
+            this.scoreLabel.AutoSize = true;
+            this.scoreLabel.Font = new System.Drawing.Font("Rockwell", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreLabel.Location = new System.Drawing.Point(12, 12);
+            this.scoreLabel.Name = "scoreLabel";
+            this.scoreLabel.Size = new System.Drawing.Size(100, 46);
+            this.scoreLabel.TabIndex = 4;
+            this.scoreLabel.Text = "0000";
+            this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tickScore
+            // 
+            this.tickScore.Enabled = true;
+            this.tickScore.Interval = 1000;
+            this.tickScore.Tick += new System.EventHandler(this.Score_Tick);
+            // 
+            // tickAnimation
+            // 
+            this.tickAnimation.Enabled = true;
+            this.tickAnimation.Interval = 66;
+            this.tickAnimation.Tick += new System.EventHandler(this.Animation_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(851, 388);
+            this.ClientSize = new System.Drawing.Size(730, 388);
+            this.ControlBox = false;
+            this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.cacti);
             this.Controls.Add(this.dino);
             this.Controls.Add(this.ground);
@@ -112,6 +140,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dino)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ground)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -123,6 +152,9 @@
         private System.Windows.Forms.Timer tickClock;
         private System.Windows.Forms.PictureBox cacti;
         private System.Windows.Forms.Timer tickSpawn;
+        private System.Windows.Forms.Label scoreLabel;
+        private System.Windows.Forms.Timer tickScore;
+        private System.Windows.Forms.Timer tickAnimation;
     }
 }
 

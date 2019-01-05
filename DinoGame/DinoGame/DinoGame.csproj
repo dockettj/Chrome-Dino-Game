@@ -108,5 +108,17 @@
   <ItemGroup>
     <None Include="res\cacti\cactus7.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\dino\dinoDeceased.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\dino\dinoStanding.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\dino\dinoWalk1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\dino\dinoWalk2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
