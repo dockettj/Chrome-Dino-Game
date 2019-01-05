@@ -20,9 +20,9 @@ namespace DinoGame
 
             selectedCactus = rand.Next(0, 6);
 
-            selectCactus(selectedCactus);        
-           
-            cactus.Location = new Point(900, 279);
+            selectCactus(selectedCactus);
+
+            cactus.Location = new Point(900, 280);
             cactus.BackColor = Color.Transparent;
             cactus.SizeMode = PictureBoxSizeMode.StretchImage;
             cactus.Size = new Size(43, 90);
