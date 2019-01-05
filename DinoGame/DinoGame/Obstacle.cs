@@ -10,13 +10,16 @@ namespace DinoGame
         string[] possibleCactus = new string[7] { "cactus1", "cactus2", "cactus3", "cactus4", "cactus5", "cactus6", "cactus7", };
         public PictureBox cactus = new PictureBox();
 
+        Random rand = new Random();
+        int selectedCactus;
+
         public Cactus()
         {
              // Cacti always needs to reside on Y=279.
             // X will be a constantly changing variable, to make it move on the map.
 
-            Random rand = new Random();
-            int selectedCactus = rand.Next(0, 6);
+            selectedCactus = rand.Next(0, 6);
+
             selectCactus(selectedCactus);        
            
             cactus.Location = new Point(900, 279);
@@ -60,6 +63,7 @@ namespace DinoGame
         public void updatePosition(double movementSpeed)
         {
             cactus.Location = new Point(Convert.ToInt32(cactus.Location.X - movementSpeed), cactus.Location.Y);
+            selectCactus(selectedCactus);
         }
 
     }

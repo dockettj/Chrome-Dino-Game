@@ -27,11 +27,15 @@ namespace DinoGame
 
         List<Cactus> cactus = new List<Cactus>();
 
+        Random rand;
+        int minimumCactusSpawn, maximumCactusSpawn;
+
         int totalScore;
 
         public Form1()
         {
             InitializeComponent();
+            rand = new Random();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,6 +43,16 @@ namespace DinoGame
             pos[0] = dino.Location.X;
             pos[1] = dino.Location.Y;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
+            minimumCactusSpawn = 3000;
+            maximumCactusSpawn = 3500;
+
+            Cactus joshua = new Cactus();
+            Controls.Add(joshua.cactus);
+            joshua.cactus.BringToFront();
+            cactus.Add(joshua);
+
+            tickSpawn.Interval = rand.Next(minimumCactusSpawn, maximumCactusSpawn);
         }
 
         private void ButtonPress(object sender, KeyEventArgs e)
@@ -109,6 +123,12 @@ namespace DinoGame
 
         private void Spawn_Tick(object sender, EventArgs e)
         {
+            if (minimumCactusSpawn >= 1500)
+            {
+                minimumCactusSpawn -= 50;
+            }
+
+            tickSpawn.Interval = rand.Next(minimumCactusSpawn, maximumCactusSpawn);
             Cactus joshua = new Cactus();
             Controls.Add(joshua.cactus);
             joshua.cactus.BringToFront();
