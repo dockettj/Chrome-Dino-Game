@@ -183,9 +183,9 @@ namespace DinoGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Start {
+        internal static System.Drawing.Bitmap orig {
             get {
-                object obj = ResourceManager.GetObject("Start", resourceCulture);
+                object obj = ResourceManager.GetObject("orig", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1,5 +1,5 @@
 ﻿/* Google Chrome Dino Game Recreation
- * Created as a possible 10th grade day program.
+ * Created for 10th grade day! Woot Woot!
  */
 
 using System;
@@ -16,6 +16,13 @@ namespace DinoGame
 {
     public partial class Form1 : Form
     {
+        // Editable Variables. These are the only things you should really edit unless you're feeling adventureous.
+
+        double movementSpeed = 6; // How fast the dino moves. 
+        double movementSpeedIncrement = 0.01; // The amount faster that the dino will get every frame.
+        int maxJumpHeight = 170; // The maximum position that the dino can jump. I'd reccomend it be greater than 150. 
+        bool isCustomCharacter = true;
+
 
         double[] vel = new double[] { 0, 0 };
         double[] pos = new double[] { 0, 0 };
@@ -32,6 +39,8 @@ namespace DinoGame
 
         int totalScore;
 
+
+         
         public Form1()
         {
             InitializeComponent();
@@ -53,6 +62,8 @@ namespace DinoGame
             cactus.Add(joshua);
 
             tickSpawn.Interval = rand.Next(minimumCactusSpawn, maximumCactusSpawn);
+
+
         }
 
         private void ButtonPress(object sender, KeyEventArgs e)
@@ -67,14 +78,14 @@ namespace DinoGame
         private void Ground_Tick(object sender, EventArgs e)
         {
             //MessageBox.Show("Tick");
-            double movement = 8;
-            movement += 0.001;
-            ground.Location = new Point(Convert.ToInt32(ground.Location.X - movement), ground.Location.Y);
+
+            movementSpeed += movementSpeedIncrement;
+            ground.Location = new Point(Convert.ToInt32(ground.Location.X - movementSpeed), ground.Location.Y);
             if (ground.Location.X <= this.Width - ground.Width) { ground.Left = 0; }
 
             foreach (Cactus c in cactus)
             {
-                c.updatePosition(movement);
+                c.updatePosition(movementSpeed);
                 CheckCactusColission(c);
                 if (c.cactus.Location.X < -25)
                 {
@@ -85,8 +96,6 @@ namespace DinoGame
 
         private void Clock_Tick(object sender, EventArgs e)
         {
-            int maxJumpHeight = 150;
-
             if (jumpingLower == true) // Our gravity engine ( I think. That sounds like the right thing to call it. So I'm going to keep it like that.)
             {
                 acc[1] = 0.6; // Gravity. Lower is less of it. NOTE: Make it negative to fly into space thje first time you jump. Rocket shoes baby!
@@ -160,18 +169,42 @@ namespace DinoGame
             }
         }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            tickGround.Enabled = true;
+            tickClock.Enabled = true;
+            tickScore.Enabled = true;
+            tickSpawn.Enabled = true;
+            btnPlay.Visible = false;
+
+            if (!isCustomCharacter)
+            {
+                tickAnimation.Enabled = true;
+            }
+
+        }
+
         private void EndGame()
         {
-            //MessageBox.Show("Ending");
-            tickClock.Enabled = tickGround.Enabled = tickSpawn.Enabled = false;
-            MessageBox.Show(this, "Ended Game");
-            Application.Exit();
+            tickGround.Enabled = false;
+            tickClock.Enabled = false;
+            tickScore.Enabled = false;
+            tickSpawn.Enabled = false;
+            btnPlay.Visible = true;
+
+            if (!isCustomCharacter)
+            {
+                tickAnimation.Enabled = false;
+            }
+
         }
 
         private void CheckCactusColission(Cactus cactus)
         {
             if (dino.Bounds.IntersectsWith(cactus.cactus.Bounds))
             {
+                cactus.cactus.Enabled = false;
+                cactus.cactus.Visible = false;
                 EndGame();
             }
         }

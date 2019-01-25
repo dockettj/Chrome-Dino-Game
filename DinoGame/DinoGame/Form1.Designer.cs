@@ -36,11 +36,11 @@
             this.scoreLabel = new System.Windows.Forms.Label();
             this.tickScore = new System.Windows.Forms.Timer(this.components);
             this.tickAnimation = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnPlay = new System.Windows.Forms.PictureBox();
             this.cacti = new System.Windows.Forms.PictureBox();
             this.dino = new System.Windows.Forms.PictureBox();
             this.ground = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPlay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cacti)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dino)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ground)).BeginInit();
@@ -82,15 +82,16 @@
             this.tickAnimation.Interval = 66;
             this.tickAnimation.Tick += new System.EventHandler(this.Animation_Tick);
             // 
-            // pictureBox1
+            // btnPlay
             // 
-            this.pictureBox1.Image = global::DinoGame.Properties.Resources.Start;
-            this.pictureBox1.Location = new System.Drawing.Point(295, 195);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.btnPlay.Image = global::DinoGame.Properties.Resources.orig;
+            this.btnPlay.Location = new System.Drawing.Point(298, 143);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(108, 96);
+            this.btnPlay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnPlay.TabIndex = 5;
+            this.btnPlay.TabStop = false;
+            this.btnPlay.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // cacti
             // 
@@ -108,10 +109,10 @@
             // dino
             // 
             this.dino.BackColor = System.Drawing.Color.Transparent;
-            this.dino.Image = global::DinoGame.Properties.Resources.dinoStanding;
-            this.dino.Location = new System.Drawing.Point(92, 286);
+            this.dino.Image = ((System.Drawing.Image)(resources.GetObject("dino.Image")));
+            this.dino.Location = new System.Drawing.Point(85, 275);
             this.dino.Name = "dino";
-            this.dino.Size = new System.Drawing.Size(54, 78);
+            this.dino.Size = new System.Drawing.Size(61, 82);
             this.dino.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.dino.TabIndex = 2;
             this.dino.TabStop = false;
@@ -134,7 +135,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(730, 388);
             this.ControlBox = false;
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.cacti);
             this.Controls.Add(this.dino);
@@ -144,7 +145,7 @@
             this.Text = "Chrome Dino Game";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ButtonPress);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPlay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cacti)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dino)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ground)).EndInit();
@@ -164,7 +165,7 @@
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Timer tickScore;
         private System.Windows.Forms.Timer tickAnimation;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox btnPlay;
     }
 }
 
