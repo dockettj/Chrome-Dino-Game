@@ -18,21 +18,25 @@ namespace DinoGame
     {
         // Editable Variables. These are the only things you should really edit unless you're feeling adventureous.
 
-        double movementSpeed = 6; // How fast the dino moves. 
+        int dinoLowLocation = 285; // The location of the dino when it is not jumping. Leave it a 285 when not using a custom character, but, if using a custom character, feel free to change it.
+        double initMovementSpeed = 6; // How fast the dino moves. 
         double movementSpeedIncrement = 0.01; // The amount faster that the dino will get every frame.
-        int maxJumpHeight = 170; // The maximum position that the dino can jump. I'd reccomend it be greater than 150. 
-        bool isCustomCharacter = true;
+        double gravity = 0.4; // Gravity. Lower is less of it. NOTE: Make it negative to fly into space thje first time you jump. Rocket shoes baby!
+        int maxJumpHeight = 100; // The maximum position that the dino can jump. I'd reccomend it be greater than 150. 
+        bool isCustomCharacter = false;
 
 
         double[] vel = new double[] { 0, 0 };
         double[] pos = new double[] { 0, 0 };
         double[] acc = new double[] { 0, 0 };
 
+        double movementSpeed;
+
         bool jumpingRaise, jumpingLower = false;
 
         int dinoAnimationPosition = 1; // Position 0 is not moving.
 
-        List<Cactus> cactus = new List<Cactus>();
+        List<Cactus> cacti = new List<Cactus>();
 
         Random rand;
         int minimumCactusSpawn, maximumCactusSpawn;
@@ -49,6 +53,8 @@ namespace DinoGame
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            movementSpeed = initMovementSpeed;            
+
             pos[0] = dino.Location.X;
             pos[1] = dino.Location.Y;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -59,7 +65,7 @@ namespace DinoGame
             Cactus joshua = new Cactus();
             Controls.Add(joshua.cactus);
             joshua.cactus.BringToFront();
-            cactus.Add(joshua);
+            cacti.Add(joshua);
 
             tickSpawn.Interval = rand.Next(minimumCactusSpawn, maximumCactusSpawn);
 
@@ -68,7 +74,7 @@ namespace DinoGame
 
         private void ButtonPress(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Keys.Up || e.KeyCode == Keys.Space) && dino.Location.Y >= 290)
+            if ((e.KeyCode == Keys.Up) && dino.Location.Y >= dinoLowLocation)
             {
                 jumpingRaise = true;
                 dinoAnimationPosition = 0;
@@ -83,22 +89,37 @@ namespace DinoGame
             ground.Location = new Point(Convert.ToInt32(ground.Location.X - movementSpeed), ground.Location.Y);
             if (ground.Location.X <= this.Width - ground.Width) { ground.Left = 0; }
 
-            foreach (Cactus c in cactus)
+
+            try
             {
-                c.updatePosition(movementSpeed);
-                CheckCactusColission(c);
-                if (c.cactus.Location.X < -25)
+                foreach (Cactus c in cacti)
                 {
-                    Controls.Remove(c.cactus);                }
+                    c.updatePosition(movementSpeed);
+                    CheckCactusColission(c);
+                    if (c.cactus.Location.X < -25)
+                    {
+                        Controls.Remove(c.cactus);
+                        cacti.Remove(c);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
 
         private void Clock_Tick(object sender, EventArgs e)
         {
+            finalScoreLabel.Visible = false;
+            scoreLabel.Visible = true;
+
+
             if (jumpingLower == true) // Our gravity engine ( I think. That sounds like the right thing to call it. So I'm going to keep it like that.)
             {
-                acc[1] = 0.6; // Gravity. Lower is less of it. NOTE: Make it negative to fly into space thje first time you jump. Rocket shoes baby!
+                acc[1] = gravity; // Gravity. Lower is less of it. NOTE: Make it negative to fly into space thje first time you jump. Rocket shoes baby!
                 vel[1] += acc[1];
                 pos[1] += (vel[1] + 0.55 * acc[1]);
 
@@ -125,7 +146,7 @@ namespace DinoGame
             }
             else
             {
-                dino.Location = new Point(dino.Location.X, 290);
+                dino.Location = new Point(dino.Location.X, dinoLowLocation);
                 vel[1] = 0.45;
             }
         }
@@ -138,16 +159,22 @@ namespace DinoGame
             }
 
             tickSpawn.Interval = rand.Next(minimumCactusSpawn, maximumCactusSpawn);
-            Cactus joshua = new Cactus();
-            Controls.Add(joshua.cactus);
-            joshua.cactus.BringToFront();
-            cactus.Add(joshua);
+            Cactus cactus = new Cactus();
+            Controls.Add(cactus.cactus);
+            cactus.cactus.BringToFront();
+            this.cacti.Add(cactus);
         }
 
 
         private void Score_Tick(object sender, EventArgs e)
         {
-            totalScore++;
+            for (int i = 0; i < cacti.Count; i++)
+            {
+                if (dino.Location.X >= cacti.ElementAt(i).cactus.Location.X)
+                {
+                    totalScore = totalScore + 1;   
+                }
+            }
             scoreLabel.Text = totalScore.ToString("0000");
         }
 
@@ -184,21 +211,6 @@ namespace DinoGame
 
         }
 
-        private void EndGame()
-        {
-            tickGround.Enabled = false;
-            tickClock.Enabled = false;
-            tickScore.Enabled = false;
-            tickSpawn.Enabled = false;
-            btnPlay.Visible = true;
-
-            if (!isCustomCharacter)
-            {
-                tickAnimation.Enabled = false;
-            }
-
-        }
-
         private void CheckCactusColission(Cactus cactus)
         {
             if (dino.Bounds.IntersectsWith(cactus.cactus.Bounds))
@@ -207,6 +219,38 @@ namespace DinoGame
                 cactus.cactus.Visible = false;
                 EndGame();
             }
+        }
+
+        private void EndGame()
+        {
+            tickGround.Enabled = false;
+            tickClock.Enabled = false;
+            tickScore.Enabled = false;
+            tickSpawn.Enabled = false;
+            btnPlay.Visible = true;
+            cacti = new List<Cactus>();
+
+            dino.Location = new Point(dino.Location.X, dinoLowLocation);
+            vel[1] = 0.45;
+
+            finalScoreLabel.Visible = true;
+            finalScoreLabel.Text = "Final Score: " + totalScore.ToString("0000");
+            totalScore = 0;
+            scoreLabel.Visible = false;
+            scoreLabel.Text = totalScore.ToString("0000");
+
+            jumpingLower = false;
+            jumpingRaise = false;
+
+            movementSpeed = initMovementSpeed;
+
+            dinoAnimationPosition = 1;
+
+            if (!isCustomCharacter)
+            {
+                tickAnimation.Enabled = false;
+            }
+
         }
     }
 }
