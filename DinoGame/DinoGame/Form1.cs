@@ -46,7 +46,7 @@ namespace DinoGame
         bool scoreTrigger = true;
 
 
-         
+
         public Form1()
         {
             InitializeComponent();
@@ -55,7 +55,7 @@ namespace DinoGame
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            movementSpeed = initMovementSpeed;            
+            movementSpeed = initMovementSpeed;
 
             pos[0] = dino.Location.X;
             pos[1] = dino.Location.Y;
@@ -116,7 +116,7 @@ namespace DinoGame
                         Controls.Remove(b.bird);
                         birds.Remove(b);
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -146,7 +146,7 @@ namespace DinoGame
             }
             else if (jumpingRaise == true)
             {
-                acc[1] = -1.5; 
+                acc[1] = -1.5;
                 vel[1] += acc[1];
                 pos[1] += (vel[1] + 0.55 * acc[1]);
 
@@ -209,100 +209,108 @@ namespace DinoGame
                         totalScore = totalScore + 1;
                     }
                 }
-            }
-           
-            scoreLabel.Text = totalScore.ToString("0000");
-        }
+                    for (int b = 0; b < birds.Count; b++)
+                    {
+                        if (dino.Location.X >= birds.ElementAt(b).bird.Location.X)
+                        {
+                            scoreTrigger = false;
+                            totalScore = totalScore + 1;
+                        }
+                    }
+                }
 
-        private void Animation_Tick(object sender, EventArgs e)
-        {
-            if (dinoAnimationPosition == 0)
-            {
-                dino.Image = Properties.Resources.dinoStanding;
+                scoreLabel.Text = totalScore.ToString("0000");
             }
-            else if (dinoAnimationPosition == 1)
+
+            public void Animation_Tick(object sender, EventArgs e)
             {
-                dino.Image = Properties.Resources.dinoWalk1;
-                dinoAnimationPosition = 2;
+                if (dinoAnimationPosition == 0)
+                {
+                    dino.Image = Properties.Resources.dinoStanding;
+                }
+                else if (dinoAnimationPosition == 1)
+                {
+                    dino.Image = Properties.Resources.dinoWalk1;
+                    dinoAnimationPosition = 2;
+                }
+                else if (dinoAnimationPosition == 2)
+                {
+                    dino.Image = Properties.Resources.dinoWalk2;
+                    dinoAnimationPosition = 1;
+                }
+
+                foreach (Bird bird in birds)
+                {
+                    bird.update();
+                }
             }
-            else if (dinoAnimationPosition == 2)
+
+            private void pictureBox1_Click(object sender, EventArgs e)
             {
-                dino.Image = Properties.Resources.dinoWalk2;
+                tickGround.Enabled = true;
+                tickClock.Enabled = true;
+                tickScore.Enabled = true;
+                tickSpawn.Enabled = true;
+                btnPlay.Visible = false;
+
+                if (!isCustomCharacter)
+                {
+                    tickAnimation.Enabled = true;
+                }
+
+            }
+
+            private void CheckCactusColission(Cactus cactus)
+            {
+                if (dino.Bounds.IntersectsWith(cactus.cactus.Bounds))
+                {
+                    cactus.cactus.Enabled = false;
+                    cactus.cactus.Visible = false;
+                    EndGame();
+                }
+            }
+
+            private void CheckBirdColission(Bird bird)
+            {
+                if (dino.Bounds.IntersectsWith(bird.bird.Bounds))
+                {
+                    bird.bird.Enabled = false;
+                    bird.bird.Visible = false;
+                    EndGame();
+                }
+            }
+
+            private void EndGame()
+            {
+                tickGround.Enabled = false;
+                tickClock.Enabled = false;
+                tickScore.Enabled = false;
+                tickSpawn.Enabled = false;
+                btnPlay.Visible = true;
+                scoreTrigger = true;
+                cacti = new List<Cactus>();
+
+                dino.Location = new Point(dino.Location.X, dinoLowLocation);
+                vel[1] = 0.45;
+
+                finalScoreLabel.Visible = true;
+                finalScoreLabel.Text = "Final Score: " + totalScore.ToString("0000");
+                totalScore = 0;
+                scoreLabel.Visible = false;
+                scoreLabel.Text = totalScore.ToString("0000");
+
+                jumpingLower = false;
+                jumpingRaise = false;
+
+                movementSpeed = initMovementSpeed;
+
                 dinoAnimationPosition = 1;
-            }
 
-            foreach (Bird bird in birds)
-            {
-                bird.update();
-            }
-        }
+                if (!isCustomCharacter)
+                {
+                    tickAnimation.Enabled = false;
+                }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            tickGround.Enabled = true;
-            tickClock.Enabled = true;
-            tickScore.Enabled = true;
-            tickSpawn.Enabled = true;
-            btnPlay.Visible = false;
-
-            if (!isCustomCharacter)
-            {
-                tickAnimation.Enabled = true;
-            }
-
-        }
-
-        private void CheckCactusColission(Cactus cactus)
-        {
-            if (dino.Bounds.IntersectsWith(cactus.cactus.Bounds))
-            {
-                cactus.cactus.Enabled = false;
-                cactus.cactus.Visible = false;
-                EndGame();
             }
         }
-
-        private void CheckBirdColission(Bird bird)
-        {
-            if (dino.Bounds.IntersectsWith(bird.bird.Bounds))
-            {
-                bird.bird.Enabled = false;
-                bird.bird.Visible = false;
-                EndGame();
-            }
-        }
-
-        private void EndGame()
-        {
-            tickGround.Enabled = false;
-            tickClock.Enabled = false;
-            tickScore.Enabled = false;
-            tickSpawn.Enabled = false;
-            btnPlay.Visible = true;
-            scoreTrigger = true;
-            cacti = new List<Cactus>();
-
-            dino.Location = new Point(dino.Location.X, dinoLowLocation);
-            vel[1] = 0.45;
-
-            finalScoreLabel.Visible = true;
-            finalScoreLabel.Text = "Final Score: " + totalScore.ToString("0000");
-            totalScore = 0;
-            scoreLabel.Visible = false;
-            scoreLabel.Text = totalScore.ToString("0000");
-
-            jumpingLower = false;
-            jumpingRaise = false;
-
-            movementSpeed = initMovementSpeed;
-
-            dinoAnimationPosition = 1;
-
-            if (!isCustomCharacter)
-            {
-                tickAnimation.Enabled = false;
-            }
-
-        }
-    }
-}
+    } 

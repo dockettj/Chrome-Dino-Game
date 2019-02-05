@@ -84,7 +84,7 @@ namespace DinoGame
             bird.Location = new Point(900, 237);
             bird.BackColor = Color.Transparent;
             bird.SizeMode = PictureBoxSizeMode.StretchImage;
-            bird.Size = new Size(50, 37);
+            bird.Size = new Size(50, 18);
         }
 
         public void update()
