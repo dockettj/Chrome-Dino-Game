@@ -72,31 +72,39 @@ namespace DinoGame
 
     class Bird
     {
-        string[] possibleCactus = new string[7] { "cactus1", "cactus2", "cactus3", "cactus4", "cactus5", "cactus6", "cactus7", };
-        public PictureBox cactus = new PictureBox();
+        public PictureBox bird = new PictureBox();
+        private int animLocation = 0;
 
-        Random rand = new Random();
-        int selectedCactus;
-
-        public Cactus()
+        public Bird()
         {
             // Cacti always needs to reside on Y=279.
             // X will be a constantly changing variable, to make it move on the map.
 
-            selectedCactus = rand.Next(0, 6);
+            bird.Image = Properties.Resources.bird2;
+            bird.Location = new Point(900, 237);
+            bird.BackColor = Color.Transparent;
+            bird.SizeMode = PictureBoxSizeMode.StretchImage;
+            bird.Size = new Size(50, 37);
+        }
 
-            cactus.Location = new Point(900, 280);
-            cactus.BackColor = Color.Transparent;
-            cactus.SizeMode = PictureBoxSizeMode.StretchImage;
-            cactus.Size = new Size(43, 90);
+        public void update()
+        {
+            if (animLocation == 0) 
+            {
+                bird.Image = Properties.Resources.bird2;
+                animLocation = 1;
+            }
+            else if (animLocation == 1)
+            {
+                bird.Image = Properties.Resources.bird1;
+                animLocation = 0;
+            }
+
         }
 
         public void updatePosition(double movementSpeed)
         {
-            if (this.cactus != null)
-            {
-                cactus.Location = new Point(Convert.ToInt32(cactus.Location.X - movementSpeed), cactus.Location.Y);
-            }
+                bird.Location = new Point(Convert.ToInt32(bird.Location.X - movementSpeed), bird.Location.Y);
         }
     }
 

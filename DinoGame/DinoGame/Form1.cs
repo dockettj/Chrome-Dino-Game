@@ -37,9 +37,10 @@ namespace DinoGame
         int dinoAnimationPosition = 1; // Position 0 is not moving.
 
         List<Cactus> cacti = new List<Cactus>();
+        List<Bird> birds = new List<Bird>();
 
         Random rand;
-        int minimumCactusSpawn, maximumCactusSpawn;
+        int minimumSpawnTime, maximumSpawnTime;
 
         int totalScore;
         bool scoreTrigger = true;
@@ -60,15 +61,15 @@ namespace DinoGame
             pos[1] = dino.Location.Y;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-            minimumCactusSpawn = 3000;
-            maximumCactusSpawn = 3500;
+            minimumSpawnTime = 3000;
+            maximumSpawnTime = 3500;
 
             Cactus joshua = new Cactus();
             Controls.Add(joshua.cactus);
             joshua.cactus.BringToFront();
             cacti.Add(joshua);
 
-            tickSpawn.Interval = rand.Next(minimumCactusSpawn, maximumCactusSpawn);
+            tickSpawn.Interval = rand.Next(minimumSpawnTime, maximumSpawnTime);
 
 
         }
@@ -103,7 +104,19 @@ namespace DinoGame
                         Controls.Remove(c.cactus);
                         cacti.Remove(c);
                     }
+                }
 
+                foreach (Bird b in birds)
+                {
+                    b.updatePosition(movementSpeed);
+                    CheckBirdColission(b);
+                    if (b.bird.Location.X < -25)
+                    {
+                        scoreTrigger = true;
+                        Controls.Remove(b.bird);
+                        birds.Remove(b);
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -111,7 +124,6 @@ namespace DinoGame
 
             }
         }
-
 
         private void Clock_Tick(object sender, EventArgs e)
         {
@@ -155,18 +167,35 @@ namespace DinoGame
 
         private void Spawn_Tick(object sender, EventArgs e)
         {
-            if (minimumCactusSpawn >= 1500)
+            int choice = rand.Next(0, 2);
+
+            if (choice == 0) // We want to spawn a cactus
             {
-                minimumCactusSpawn -= 50;
+                if (minimumSpawnTime >= 1500)
+                {
+                    minimumSpawnTime -= 50;
+                }
+
+                tickSpawn.Interval = rand.Next(minimumSpawnTime, maximumSpawnTime);
+                Cactus cactus = new Cactus();
+                Controls.Add(cactus.cactus);
+                cactus.cactus.BringToFront();
+                this.cacti.Add(cactus);
             }
+            else if (choice == 1)
+            {
+                if (minimumSpawnTime >= 1500)
+                {
+                    minimumSpawnTime -= 50;
+                }
 
-            tickSpawn.Interval = rand.Next(minimumCactusSpawn, maximumCactusSpawn);
-            Cactus cactus = new Cactus();
-            Controls.Add(cactus.cactus);
-            cactus.cactus.BringToFront();
-            this.cacti.Add(cactus);
+                tickSpawn.Interval = rand.Next(minimumSpawnTime, maximumSpawnTime);
+                Bird bird = new Bird();
+                Controls.Add(bird.bird);
+                bird.bird.BringToFront();
+                this.birds.Add(bird);
+            }
         }
-
 
         private void Score_Tick(object sender, EventArgs e)
         {
@@ -201,6 +230,11 @@ namespace DinoGame
                 dino.Image = Properties.Resources.dinoWalk2;
                 dinoAnimationPosition = 1;
             }
+
+            foreach (Bird bird in birds)
+            {
+                bird.update();
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -224,6 +258,16 @@ namespace DinoGame
             {
                 cactus.cactus.Enabled = false;
                 cactus.cactus.Visible = false;
+                EndGame();
+            }
+        }
+
+        private void CheckBirdColission(Bird bird)
+        {
+            if (dino.Bounds.IntersectsWith(bird.bird.Bounds))
+            {
+                bird.bird.Enabled = false;
+                bird.bird.Visible = false;
                 EndGame();
             }
         }
