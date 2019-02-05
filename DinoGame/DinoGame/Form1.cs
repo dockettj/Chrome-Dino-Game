@@ -20,7 +20,7 @@ namespace DinoGame
 
         int dinoLowLocation = 285; // The location of the dino when it is not jumping. Leave it a 285 when not using a custom character, but, if using a custom character, feel free to change it.
         double initMovementSpeed = 6; // How fast the dino moves. 
-        double movementSpeedIncrement = 0.01; // The amount faster that the dino will get every frame.
+        double movementSpeedIncrement = 0.003; // The amount faster that the dino will get every frame.
         double gravity = 0.4; // Gravity. Lower is less of it. NOTE: Make it negative to fly into space thje first time you jump. Rocket shoes baby!
         int maxJumpHeight = 100; // The maximum position that the dino can jump. I'd reccomend it be greater than 150. 
         bool isCustomCharacter = false;
@@ -42,6 +42,7 @@ namespace DinoGame
         int minimumCactusSpawn, maximumCactusSpawn;
 
         int totalScore;
+        bool scoreTrigger = true;
 
 
          
@@ -98,6 +99,7 @@ namespace DinoGame
                     CheckCactusColission(c);
                     if (c.cactus.Location.X < -25)
                     {
+                        scoreTrigger = true;
                         Controls.Remove(c.cactus);
                         cacti.Remove(c);
                     }
@@ -168,13 +170,18 @@ namespace DinoGame
 
         private void Score_Tick(object sender, EventArgs e)
         {
-            for (int i = 0; i < cacti.Count; i++)
+            if (scoreTrigger)
             {
-                if (dino.Location.X >= cacti.ElementAt(i).cactus.Location.X)
+                for (int i = 0; i < cacti.Count; i++)
                 {
-                    totalScore = totalScore + 1;   
+                    if (dino.Location.X >= cacti.ElementAt(i).cactus.Location.X)
+                    {
+                        scoreTrigger = false;
+                        totalScore = totalScore + 1;
+                    }
                 }
             }
+           
             scoreLabel.Text = totalScore.ToString("0000");
         }
 
@@ -228,6 +235,7 @@ namespace DinoGame
             tickScore.Enabled = false;
             tickSpawn.Enabled = false;
             btnPlay.Visible = true;
+            scoreTrigger = true;
             cacti = new List<Cactus>();
 
             dino.Location = new Point(dino.Location.X, dinoLowLocation);

@@ -64,10 +64,10 @@
             // scoreLabel
             // 
             this.scoreLabel.AutoSize = true;
-            this.scoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.scoreLabel.Location = new System.Drawing.Point(612, 9);
+            this.scoreLabel.Font = new System.Drawing.Font("Comic Sans MS", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreLabel.Location = new System.Drawing.Point(567, 9);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(106, 42);
+            this.scoreLabel.Size = new System.Drawing.Size(145, 67);
             this.scoreLabel.TabIndex = 4;
             this.scoreLabel.Text = "0000";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -119,10 +119,10 @@
             // finalScoreLabel
             // 
             this.finalScoreLabel.AutoSize = true;
-            this.finalScoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.finalScoreLabel.Location = new System.Drawing.Point(205, 126);
+            this.finalScoreLabel.Font = new System.Drawing.Font("Comic Sans MS", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.finalScoreLabel.Location = new System.Drawing.Point(148, 101);
             this.finalScoreLabel.Name = "finalScoreLabel";
-            this.finalScoreLabel.Size = new System.Drawing.Size(328, 42);
+            this.finalScoreLabel.Size = new System.Drawing.Size(448, 67);
             this.finalScoreLabel.TabIndex = 6;
             this.finalScoreLabel.Text = "Final Score: 0000";
             this.finalScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -133,7 +133,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(730, 388);
+            this.ClientSize = new System.Drawing.Size(724, 392);
             this.ControlBox = false;
             this.Controls.Add(this.finalScoreLabel);
             this.Controls.Add(this.btnPlay);
