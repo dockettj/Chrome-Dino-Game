@@ -69,4 +69,43 @@ namespace DinoGame
             }
         }
     }
+
+    class Bird
+    {
+        public PictureBox bird = new PictureBox();
+        private int animLocation = 0;
+
+        public Bird()
+        {
+            // Cacti always needs to reside on Y=279.
+            // X will be a constantly changing variable, to make it move on the map.
+
+            bird.Image = Properties.Resources.bird2;
+            bird.Location = new Point(900, 237);
+            bird.BackColor = Color.Transparent;
+            bird.SizeMode = PictureBoxSizeMode.StretchImage;
+            bird.Size = new Size(50, 37);
+        }
+
+        public void update()
+        {
+            if (animLocation == 0) 
+            {
+                bird.Image = Properties.Resources.bird2;
+                animLocation = 1;
+            }
+            else if (animLocation == 1)
+            {
+                bird.Image = Properties.Resources.bird1;
+                animLocation = 0;
+            }
+
+        }
+
+        public void updatePosition(double movementSpeed)
+        {
+                bird.Location = new Point(Convert.ToInt32(bird.Location.X - movementSpeed), bird.Location.Y);
+        }
+    }
+
 }

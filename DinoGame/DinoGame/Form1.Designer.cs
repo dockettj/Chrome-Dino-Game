@@ -36,11 +36,11 @@
             this.scoreLabel = new System.Windows.Forms.Label();
             this.tickScore = new System.Windows.Forms.Timer(this.components);
             this.tickAnimation = new System.Windows.Forms.Timer(this.components);
+            this.tickStart = new System.Windows.Forms.Timer(this.components);
+            this.finalScoreLabel = new System.Windows.Forms.Label();
             this.btnPlay = new System.Windows.Forms.PictureBox();
             this.dino = new System.Windows.Forms.PictureBox();
             this.ground = new System.Windows.Forms.PictureBox();
-            this.tickStart = new System.Windows.Forms.Timer(this.components);
-            this.finalScoreLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.btnPlay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dino)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ground)).BeginInit();
@@ -83,6 +83,18 @@
             this.tickAnimation.Interval = 66;
             this.tickAnimation.Tick += new System.EventHandler(this.Animation_Tick);
             // 
+            // finalScoreLabel
+            // 
+            this.finalScoreLabel.AutoSize = true;
+            this.finalScoreLabel.Font = new System.Drawing.Font("Comic Sans MS", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.finalScoreLabel.Location = new System.Drawing.Point(148, 101);
+            this.finalScoreLabel.Name = "finalScoreLabel";
+            this.finalScoreLabel.Size = new System.Drawing.Size(448, 67);
+            this.finalScoreLabel.TabIndex = 6;
+            this.finalScoreLabel.Text = "Final Score: 0000";
+            this.finalScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.finalScoreLabel.Visible = false;
+            // 
             // btnPlay
             // 
             this.btnPlay.Image = global::DinoGame.Properties.Resources.orig;
@@ -115,18 +127,6 @@
             this.ground.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ground.TabIndex = 1;
             this.ground.TabStop = false;
-            // 
-            // finalScoreLabel
-            // 
-            this.finalScoreLabel.AutoSize = true;
-            this.finalScoreLabel.Font = new System.Drawing.Font("Comic Sans MS", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.finalScoreLabel.Location = new System.Drawing.Point(148, 101);
-            this.finalScoreLabel.Name = "finalScoreLabel";
-            this.finalScoreLabel.Size = new System.Drawing.Size(448, 67);
-            this.finalScoreLabel.TabIndex = 6;
-            this.finalScoreLabel.Text = "Final Score: 0000";
-            this.finalScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.finalScoreLabel.Visible = false;
             // 
             // Form1
             // 
