@@ -27,3 +27,4 @@
 1. When the session ends, send the student on their way and thank them for coming to our class.
 2. Delete the copied "Chrome-Dino-Game" folder that you made with this student.
 3. Prepare for the next student by starting over at step 2.
+
